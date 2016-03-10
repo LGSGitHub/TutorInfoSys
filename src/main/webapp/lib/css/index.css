@@ -1,0 +1,61 @@
+body{
+	/* background-image:url("../images/background1.jpg"); */
+	background-color:#F5F5F5;
+}
+.container{
+	background-color:white;
+}
+a:link{
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:none;
+	color:#EE7621;
+}
+a:visited{
+	text-decoration:none;
+}
+
+/* 教学风采 */
+#teacherShowTitle{
+	border:2px solid #bababa;
+	background-color: #8dbff1;
+	font-size:20px;
+	padding:8px;
+	margin: 8px;
+}
+
+.more{
+	float:right;
+}
+#teacherShow{
+	height:300px;
+	border:1px solid red;
+}
+#studentShowTitle{
+	border:2px solid #bababa;
+	background-color: #8dbff1;
+	font-size:20px;
+	padding:8px;
+	margin: 8px;
+}
+#studentShow{
+	height:300px;
+	border:1px solid red;
+}
+#articleShow{
+	height:300px;
+	border:1px solid red;
+}
+#articleShowTitle{
+	border:2px solid #bababa;
+	background-color: #8dbff1;
+	font-size:20px;
+	padding:8px;
+	margin: 8px;
+}
+
+#carousel{
+	width:800px;
+	margin:0px auto;
+}
