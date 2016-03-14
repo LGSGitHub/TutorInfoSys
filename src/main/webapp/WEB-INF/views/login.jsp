@@ -164,9 +164,9 @@
 										});
 
 							// Validate the form manually
-							$('#loginBtn').click(function() {
+							/* $('#loginBtn').click(function() {
 								alert("heh")
-							});
+							}); */
 					});
 		/* function getUserName(){
 			$.ajax({
