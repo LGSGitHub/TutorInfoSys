@@ -1,6 +1,4 @@
 body{
-	/* background-image:url("../images/background1.jpg"); */
-	background-color:#F5F5F5;
 }
 .container{
 	background-color:white;
@@ -30,7 +28,7 @@ a:visited{
 }
 #teacherShow{
 	height:300px;
-	border:1px solid red;
+	border:2px solid #bababa;
 }
 #studentShowTitle{
 	border:2px solid #bababa;
@@ -41,11 +39,11 @@ a:visited{
 }
 #studentShow{
 	height:300px;
-	border:1px solid red;
+	border:2px solid #bababa;
 }
 #articleShow{
 	height:300px;
-	border:1px solid red;
+	border:2px solid #bababa;
 }
 #articleShowTitle{
 	border:2px solid #bababa;
