@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgs.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.lgs.dto.Student" >
+    <id column="STUDENT_ID" property="studentId" jdbcType="INTEGER" />
+    <result column="STUDENT_NAME" property="studentName" jdbcType="VARCHAR" />
+    <result column="STUDENT_PASSWORD" property="studentPassword" jdbcType="VARCHAR" />
+    <result column="STUDENT_EMAIL" property="studentEmail" jdbcType="VARCHAR" />
+    <result column="STUDENT_QUESTION" property="studentQuestion" jdbcType="VARCHAR" />
+    <result column="STUDENT_ANSWER" property="studentAnswer" jdbcType="VARCHAR" />
+    <result column="STUDENT_PHONE" property="studentPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STUDENT_ID, STUDENT_NAME, STUDENT_PASSWORD, STUDENT_EMAIL, STUDENT_QUESTION, STUDENT_ANSWER, 
+    STUDENT_PHONE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.dto.Student" >
+    insert into student (STUDENT_ID, STUDENT_NAME, STUDENT_PASSWORD, 
+      STUDENT_EMAIL, STUDENT_QUESTION, STUDENT_ANSWER, 
+      STUDENT_PHONE)
+    values (#{studentId,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, #{studentPassword,jdbcType=VARCHAR}, 
+      #{studentEmail,jdbcType=VARCHAR}, #{studentQuestion,jdbcType=VARCHAR}, #{studentAnswer,jdbcType=VARCHAR}, 
+      #{studentPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.dto.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        STUDENT_ID,
+      </if>
+      <if test="studentName != null" >
+        STUDENT_NAME,
+      </if>
+      <if test="studentPassword != null" >
+        STUDENT_PASSWORD,
+      </if>
+      <if test="studentEmail != null" >
+        STUDENT_EMAIL,
+      </if>
+      <if test="studentQuestion != null" >
+        STUDENT_QUESTION,
+      </if>
+      <if test="studentAnswer != null" >
+        STUDENT_ANSWER,
+      </if>
+      <if test="studentPhone != null" >
+        STUDENT_PHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="studentQuestion != null" >
+        #{studentQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAnswer != null" >
+        #{studentAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        #{studentPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.dto.Student" >
+    update student
+    <set >
+      <if test="studentName != null" >
+        STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPassword != null" >
+        STUDENT_PASSWORD = #{studentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="studentEmail != null" >
+        STUDENT_EMAIL = #{studentEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="studentQuestion != null" >
+        STUDENT_QUESTION = #{studentQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="studentAnswer != null" >
+        STUDENT_ANSWER = #{studentAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="studentPhone != null" >
+        STUDENT_PHONE = #{studentPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.dto.Student" >
+    update student
+    set STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+      STUDENT_PASSWORD = #{studentPassword,jdbcType=VARCHAR},
+      STUDENT_EMAIL = #{studentEmail,jdbcType=VARCHAR},
+      STUDENT_QUESTION = #{studentQuestion,jdbcType=VARCHAR},
+      STUDENT_ANSWER = #{studentAnswer,jdbcType=VARCHAR},
+      STUDENT_PHONE = #{studentPhone,jdbcType=VARCHAR}
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自行添加的写在下面 -->
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="com.lgs.dto.Student">
+  	select 
+    <include refid="Base_Column_List" />
+    from student
+    <where>
+    	<if test="studentName != null">
+    		STUDENT_NAME = #{studentName,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="com.lgs.dto.Student">
+  	select
+  	<include refid="Base_Column_List" />
+    from student
+    <where>
+    	<if test="studentPhone != null">
+    		STUDENT_PHONE = #{studentPhone,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+</mapper>

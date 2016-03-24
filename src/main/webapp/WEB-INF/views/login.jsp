@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
 
@@ -30,7 +29,7 @@
 
 				<div class="modal-body">
 					<!-- The form is placed inside the body of modal -->
-					<form id="loginForm" method="post" class="form-horizontal" action="login.html">
+					<form id="loginForm" method="post" class="form-horizontal">
 						<div class="form-group">
 							<label class="col-sm-3 control-label">用户名</label>
 							<div class="col-sm-5">
@@ -43,15 +42,6 @@
 								<input type="password" class="form-control" name="password" />
 							</div>
 						</div>
-						
-						<!-- <div class="form-group">
-							<label class="col-sm-3 control-label">验证码</label>
-							<div class="col-sm-3">
-							<input type="text" class="form-control" name="validateCode"
-								placeholder="validate code" />
-							</div>
-							<div class="col-sm-3">验证码</div>
-						</div> -->
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label">身份</label>
@@ -85,7 +75,7 @@
 								<a href="#">忘记密码？</a>
 							</div>
 							<div class="col-sm-4">
-								没有帐号？<a href="#">注册一个</a>
+								没有帐号？<a href="#" data-dismiss="modal" data-toggle="modal"  data-target="#registerModal">注册一个</a>
 							</div>
 						</div>
 					</form>
@@ -152,43 +142,42 @@
 															message : 'The username and password cannot be the same as each other'
 														}
 													}
-												}/* ,
-												validateCode : {
-													validators : {
-														notEmpty : {
-															message : 'The validate code is required and cannot be empty'
-														}
-													}
-												} */
+												}
 											}
 										});
 
-							// Validate the form manually
-							/* $('#loginBtn').click(function() {
-								alert("heh")
-							}); */
-					});
-		/* function getUserName(){
-			$.ajax({
-		        type : "post",
-		        dataType : "json",
-		        data : "",
-		        url : "getUserName.html" ,
-		        error : function(data) {
-		            alert( "网络出错 " )
-		        },
-		        success : function(data) {
-		             if (data != null ) {
-		                $("#isUserNameExist").hide();
-		            }
-		             else{
-		            	 $("#isUserNameExist").show();
-		            	 alert(this);
-		             }
-		        }
-		    });
+							$('#loginBtn').click(function() {
+								//序列化表单
+								var jsonData = $("#loginForm").serialize();
+								
+								$.ajax({
+							        type : "post",
+							        dataType : "json",
+							        data : jsonData,
+							        async: false,
+							        url : "/TutorInfoSys/login.html" ,
+							        error : function(data) {
+							            alert( "网络出错 " )
+							        },
+							        success : function(data) {
+							        	/* var obj = JSON.parse(data)
+							            alert(obj.adminName) */
+							            alert(data.status);
+							            if(data.status == "ERROR"){
+							            	alert("用户名和密码不正确");
+							            }
+							            else if(data.status == "FAIL"){
+							            	alert("用户名不存在");
+							            }
+							            else{
+							            	alert("登录成功")
+							            }
+							        }
+							    });
 
-		} */
+
+							});
+					});
 	</script>
 </body>
 

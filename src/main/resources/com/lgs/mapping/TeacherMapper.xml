@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgs.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.lgs.dto.Teacher" >
+    <id column="TEACHER_ID" property="teacherId" jdbcType="INTEGER" />
+    <result column="TEACHER_NAME" property="teacherName" jdbcType="VARCHAR" />
+    <result column="TEACHER_PASSWORD" property="teacherPassword" jdbcType="VARCHAR" />
+    <result column="TEACHER_EMAIL" property="teacherEmail" jdbcType="VARCHAR" />
+    <result column="TEACHER_GENDER" property="teacherGender" jdbcType="VARCHAR" />
+    <result column="TEACHER_TYPE" property="teacherType" jdbcType="VARCHAR" />
+    <result column="TEACHER_QUESTION" property="teacherQuestion" jdbcType="VARCHAR" />
+    <result column="TEACHER_ANSWER" property="teacherAnswer" jdbcType="VARCHAR" />
+    <result column="TEACHER_IDENTITY" property="teacherIdentity" jdbcType="INTEGER" />
+    <result column="TEACHER_BIRTHDAY" property="teacherBirthday" jdbcType="TIMESTAMP" />
+    <result column="TEACHER_POLITICAL" property="teacherPolitical" jdbcType="VARCHAR" />
+    <result column="TEACHER_EDUCATION" property="teacherEducation" jdbcType="VARCHAR" />
+    <result column="TEACHER_SCHOOL" property="teacherSchool" jdbcType="VARCHAR" />
+    <result column="TEACHER_MAJOR" property="teacherMajor" jdbcType="VARCHAR" />
+    <result column="TEACHER_NOW_IDENTITY" property="teacherNowIdentity" jdbcType="VARCHAR" />
+    <result column="TEACHER_PHONE" property="teacherPhone" jdbcType="VARCHAR" />
+    <result column="TEACHER_ADDRESS" property="teacherAddress" jdbcType="VARCHAR" />
+    <result column="TEACHER_SHOW" property="teacherShow" jdbcType="VARCHAR" />
+    <result column="TEACHER_EXPERIENCE" property="teacherExperience" jdbcType="VARCHAR" />
+    <result column="TEACHER_SUBJECT" property="teacherSubject" jdbcType="VARCHAR" />
+    <result column="TEACHER_EXP_YEAR" property="teacherExpYear" jdbcType="VARCHAR" />
+    <result column="TEACHER_TEACH_WAY" property="teacherTeachWay" jdbcType="VARCHAR" />
+    <result column="TEACHER_SALARY" property="teacherSalary" jdbcType="INTEGER" />
+    <result column="TEACHER_REGEDIT_DATE" property="teacherRegeditDate" jdbcType="TIMESTAMP" />
+    <result column="IS_AUTHENTICATION" property="isAuthentication" jdbcType="VARCHAR" />
+    <result column="AUTHENTICATION_DATE" property="authenticationDate" jdbcType="TIMESTAMP" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TEACHER_ID, TEACHER_NAME, TEACHER_PASSWORD, TEACHER_EMAIL, TEACHER_GENDER, TEACHER_TYPE, 
+    TEACHER_QUESTION, TEACHER_ANSWER, TEACHER_IDENTITY, TEACHER_BIRTHDAY, TEACHER_POLITICAL, 
+    TEACHER_EDUCATION, TEACHER_SCHOOL, TEACHER_MAJOR, TEACHER_NOW_IDENTITY, TEACHER_PHONE, 
+    TEACHER_ADDRESS, TEACHER_SHOW, TEACHER_EXPERIENCE, TEACHER_SUBJECT, TEACHER_EXP_YEAR, 
+    TEACHER_TEACH_WAY, TEACHER_SALARY, TEACHER_REGEDIT_DATE, IS_AUTHENTICATION, AUTHENTICATION_DATE, 
+    URL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.dto.Teacher" >
+    insert into teacher (TEACHER_ID, TEACHER_NAME, TEACHER_PASSWORD, 
+      TEACHER_EMAIL, TEACHER_GENDER, TEACHER_TYPE, 
+      TEACHER_QUESTION, TEACHER_ANSWER, TEACHER_IDENTITY, 
+      TEACHER_BIRTHDAY, TEACHER_POLITICAL, TEACHER_EDUCATION, 
+      TEACHER_SCHOOL, TEACHER_MAJOR, TEACHER_NOW_IDENTITY, 
+      TEACHER_PHONE, TEACHER_ADDRESS, TEACHER_SHOW, 
+      TEACHER_EXPERIENCE, TEACHER_SUBJECT, TEACHER_EXP_YEAR, 
+      TEACHER_TEACH_WAY, TEACHER_SALARY,<!--  TEACHER_REGEDIT_DATE, --> 
+      <!-- IS_AUTHENTICATION, --> AUTHENTICATION_DATE, 
+      URL)
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{teacherPassword,jdbcType=VARCHAR}, 
+      #{teacherEmail,jdbcType=VARCHAR}, #{teacherGender,jdbcType=VARCHAR}, #{teacherType,jdbcType=VARCHAR}, 
+      #{teacherQuestion,jdbcType=VARCHAR}, #{teacherAnswer,jdbcType=VARCHAR}, #{teacherIdentity,jdbcType=INTEGER}, 
+      #{teacherBirthday,jdbcType=TIMESTAMP}, #{teacherPolitical,jdbcType=VARCHAR}, #{teacherEducation,jdbcType=VARCHAR}, 
+      #{teacherSchool,jdbcType=VARCHAR}, #{teacherMajor,jdbcType=VARCHAR}, #{teacherNowIdentity,jdbcType=VARCHAR}, 
+      #{teacherPhone,jdbcType=VARCHAR}, #{teacherAddress,jdbcType=VARCHAR}, #{teacherShow,jdbcType=VARCHAR}, 
+      #{teacherExperience,jdbcType=VARCHAR}, #{teacherSubject,jdbcType=VARCHAR}, #{teacherExpYear,jdbcType=VARCHAR}, 
+      #{teacherTeachWay,jdbcType=VARCHAR}, #{teacherSalary,jdbcType=INTEGER}, <!-- #{teacherRegeditDate,jdbcType=TIMESTAMP}, --> 
+      <!-- #{isAuthentication,jdbcType=VARCHAR}, --> #{authenticationDate,jdbcType=TIMESTAMP}, 
+      #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.dto.Teacher" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        TEACHER_ID,
+      </if>
+      <if test="teacherName != null" >
+        TEACHER_NAME,
+      </if>
+      <if test="teacherPassword != null" >
+        TEACHER_PASSWORD,
+      </if>
+      <if test="teacherEmail != null" >
+        TEACHER_EMAIL,
+      </if>
+      <if test="teacherGender != null" >
+        TEACHER_GENDER,
+      </if>
+      <if test="teacherType != null" >
+        TEACHER_TYPE,
+      </if>
+      <if test="teacherQuestion != null" >
+        TEACHER_QUESTION,
+      </if>
+      <if test="teacherAnswer != null" >
+        TEACHER_ANSWER,
+      </if>
+      <if test="teacherIdentity != null" >
+        TEACHER_IDENTITY,
+      </if>
+      <if test="teacherBirthday != null" >
+        TEACHER_BIRTHDAY,
+      </if>
+      <if test="teacherPolitical != null" >
+        TEACHER_POLITICAL,
+      </if>
+      <if test="teacherEducation != null" >
+        TEACHER_EDUCATION,
+      </if>
+      <if test="teacherSchool != null" >
+        TEACHER_SCHOOL,
+      </if>
+      <if test="teacherMajor != null" >
+        TEACHER_MAJOR,
+      </if>
+      <if test="teacherNowIdentity != null" >
+        TEACHER_NOW_IDENTITY,
+      </if>
+      <if test="teacherPhone != null" >
+        TEACHER_PHONE,
+      </if>
+      <if test="teacherAddress != null" >
+        TEACHER_ADDRESS,
+      </if>
+      <if test="teacherShow != null" >
+        TEACHER_SHOW,
+      </if>
+      <if test="teacherExperience != null" >
+        TEACHER_EXPERIENCE,
+      </if>
+      <if test="teacherSubject != null" >
+        TEACHER_SUBJECT,
+      </if>
+      <if test="teacherExpYear != null" >
+        TEACHER_EXP_YEAR,
+      </if>
+      <if test="teacherTeachWay != null" >
+        TEACHER_TEACH_WAY,
+      </if>
+      <if test="teacherSalary != null" >
+        TEACHER_SALARY,
+      </if>
+      <if test="teacherRegeditDate != null" >
+        TEACHER_REGEDIT_DATE,
+      </if>
+      <if test="isAuthentication != null" >
+        IS_AUTHENTICATION,
+      </if>
+      <if test="authenticationDate != null" >
+        AUTHENTICATION_DATE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPassword != null" >
+        #{teacherPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEmail != null" >
+        #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherGender != null" >
+        #{teacherGender,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherType != null" >
+        #{teacherType,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherQuestion != null" >
+        #{teacherQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAnswer != null" >
+        #{teacherAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherIdentity != null" >
+        #{teacherIdentity,jdbcType=INTEGER},
+      </if>
+      <if test="teacherBirthday != null" >
+        #{teacherBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherPolitical != null" >
+        #{teacherPolitical,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEducation != null" >
+        #{teacherEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSchool != null" >
+        #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherMajor != null" >
+        #{teacherMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNowIdentity != null" >
+        #{teacherNowIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAddress != null" >
+        #{teacherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherShow != null" >
+        #{teacherShow,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherExperience != null" >
+        #{teacherExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSubject != null" >
+        #{teacherSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherExpYear != null" >
+        #{teacherExpYear,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTeachWay != null" >
+        #{teacherTeachWay,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSalary != null" >
+        #{teacherSalary,jdbcType=INTEGER},
+      </if>
+      <if test="teacherRegeditDate != null" >
+        #{teacherRegeditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAuthentication != null" >
+        #{isAuthentication,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationDate != null" >
+        #{authenticationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.dto.Teacher" >
+    update teacher
+    <set >
+      <if test="teacherName != null" >
+        TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPassword != null" >
+        TEACHER_PASSWORD = #{teacherPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEmail != null" >
+        TEACHER_EMAIL = #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherGender != null" >
+        TEACHER_GENDER = #{teacherGender,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherType != null" >
+        TEACHER_TYPE = #{teacherType,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherQuestion != null" >
+        TEACHER_QUESTION = #{teacherQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAnswer != null" >
+        TEACHER_ANSWER = #{teacherAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherIdentity != null" >
+        TEACHER_IDENTITY = #{teacherIdentity,jdbcType=INTEGER},
+      </if>
+      <if test="teacherBirthday != null" >
+        TEACHER_BIRTHDAY = #{teacherBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherPolitical != null" >
+        TEACHER_POLITICAL = #{teacherPolitical,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEducation != null" >
+        TEACHER_EDUCATION = #{teacherEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSchool != null" >
+        TEACHER_SCHOOL = #{teacherSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherMajor != null" >
+        TEACHER_MAJOR = #{teacherMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherNowIdentity != null" >
+        TEACHER_NOW_IDENTITY = #{teacherNowIdentity,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null" >
+        TEACHER_PHONE = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAddress != null" >
+        TEACHER_ADDRESS = #{teacherAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherShow != null" >
+        TEACHER_SHOW = #{teacherShow,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherExperience != null" >
+        TEACHER_EXPERIENCE = #{teacherExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSubject != null" >
+        TEACHER_SUBJECT = #{teacherSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherExpYear != null" >
+        TEACHER_EXP_YEAR = #{teacherExpYear,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherTeachWay != null" >
+        TEACHER_TEACH_WAY = #{teacherTeachWay,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSalary != null" >
+        TEACHER_SALARY = #{teacherSalary,jdbcType=INTEGER},
+      </if>
+      <if test="teacherRegeditDate != null" >
+        TEACHER_REGEDIT_DATE = #{teacherRegeditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAuthentication != null" >
+        IS_AUTHENTICATION = #{isAuthentication,jdbcType=VARCHAR},
+      </if>
+      <if test="authenticationDate != null" >
+        AUTHENTICATION_DATE = #{authenticationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.dto.Teacher" >
+    update teacher
+    set TEACHER_NAME = #{teacherName,jdbcType=VARCHAR},
+      TEACHER_PASSWORD = #{teacherPassword,jdbcType=VARCHAR},
+      TEACHER_EMAIL = #{teacherEmail,jdbcType=VARCHAR},
+      TEACHER_GENDER = #{teacherGender,jdbcType=VARCHAR},
+      TEACHER_TYPE = #{teacherType,jdbcType=VARCHAR},
+      TEACHER_QUESTION = #{teacherQuestion,jdbcType=VARCHAR},
+      TEACHER_ANSWER = #{teacherAnswer,jdbcType=VARCHAR},
+      TEACHER_IDENTITY = #{teacherIdentity,jdbcType=INTEGER},
+      TEACHER_BIRTHDAY = #{teacherBirthday,jdbcType=TIMESTAMP},
+      TEACHER_POLITICAL = #{teacherPolitical,jdbcType=VARCHAR},
+      TEACHER_EDUCATION = #{teacherEducation,jdbcType=VARCHAR},
+      TEACHER_SCHOOL = #{teacherSchool,jdbcType=VARCHAR},
+      TEACHER_MAJOR = #{teacherMajor,jdbcType=VARCHAR},
+      TEACHER_NOW_IDENTITY = #{teacherNowIdentity,jdbcType=VARCHAR},
+      TEACHER_PHONE = #{teacherPhone,jdbcType=VARCHAR},
+      TEACHER_ADDRESS = #{teacherAddress,jdbcType=VARCHAR},
+      TEACHER_SHOW = #{teacherShow,jdbcType=VARCHAR},
+      TEACHER_EXPERIENCE = #{teacherExperience,jdbcType=VARCHAR},
+      TEACHER_SUBJECT = #{teacherSubject,jdbcType=VARCHAR},
+      TEACHER_EXP_YEAR = #{teacherExpYear,jdbcType=VARCHAR},
+      TEACHER_TEACH_WAY = #{teacherTeachWay,jdbcType=VARCHAR},
+      TEACHER_SALARY = #{teacherSalary,jdbcType=INTEGER},
+      TEACHER_REGEDIT_DATE = #{teacherRegeditDate,jdbcType=TIMESTAMP},
+      IS_AUTHENTICATION = #{isAuthentication,jdbcType=VARCHAR},
+      AUTHENTICATION_DATE = #{authenticationDate,jdbcType=TIMESTAMP},
+      URL = #{url,jdbcType=VARCHAR}
+    where TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自行添加的写在下面 -->
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="com.lgs.dto.Teacher">
+  	select
+  	<include refid="Base_Column_List" />
+    from teacher
+    <where>
+    	<if test="teacherName != null">
+    		TEACHER_NAME = #{teacherName,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="com.lgs.dto.Teacher">
+  	select
+  	<include refid="Base_Column_List" />
+    from teacher
+    <where>
+    	<if test="teacherPhone != null">
+    		TEACHER_PHONE = #{teacherPhone,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+</mapper>

@@ -144,7 +144,9 @@
 		<!-- 尾部 -->
 		<jsp:include page="footer.jsp" />
 		
-		<jsp:include page="login.jsp"/>
+		<!-- 引入登录和注册的模态框 -->
+		<%-- <jsp:include page="login.jsp"/>
+		<jsp:include page="register.jsp"/> --%>
 
 	</div>
 
