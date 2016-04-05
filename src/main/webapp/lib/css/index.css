@@ -1,41 +1,25 @@
 body{
 }
-.container{
+/* .container{
 	background-color:white;
-}
-a:link{
-	text-decoration:none;
-}
-a:hover{
-	text-decoration:none;
-	color:#EE7621;
-}
-a:visited{
-	text-decoration:none;
-}
+} */
+
 
 /* 教学风采 */
-#teacherShowTitle{
-	border:2px solid #bababa;
+/* .title{
+	outline: #bababa dashed 1px;
 	background-color: #8dbff1;
 	font-size:20px;
 	padding:8px;
 	margin: 8px;
-}
+} */
 
 .more{
 	float:right;
 }
 #teacherShow{
-	height:300px;
+	height:200px;
 	border:2px solid #bababa;
-}
-#studentShowTitle{
-	border:2px solid #bababa;
-	background-color: #8dbff1;
-	font-size:20px;
-	padding:8px;
-	margin: 8px;
 }
 #studentShow{
 	height:300px;
@@ -45,15 +29,12 @@ a:visited{
 	height:300px;
 	border:2px solid #bababa;
 }
-#articleShowTitle{
-	border:2px solid #bababa;
-	background-color: #8dbff1;
-	font-size:20px;
-	padding:8px;
-	margin: 8px;
-}
 
 #carousel{
 	width:800px;
 	margin:0px auto;
+}
+#carousel-example-generic{
+	height:180px;
+	padding:0px 120px;
 }

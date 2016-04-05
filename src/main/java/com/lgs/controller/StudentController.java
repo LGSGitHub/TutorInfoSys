@@ -5,11 +5,13 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lgs.dto.Student;
@@ -22,7 +24,7 @@ import com.lgs.service.StudentService;
  *
  */
 @Controller
-public class StudentController {
+public class StudentController extends BaseController{
 	
 	@Autowired
 	StudentService studentService;
@@ -54,27 +56,6 @@ public class StudentController {
 	}
 	
 	
-	
-	/**
-	 * 检查用户名是否存在，方便注册和登录时候校验
-	 * 1、存在返回 true
-	 * 2、不存在返回 false
-	 * @param request
-	 * @return
-	 */
-	public boolean isNameExist(Student student){
-//		String studentName = request.getParameter("studentName");
-//		Student student = new Student();
-//		student.setStudentName(studentName);
-		Student dbStudent = studentService.queryByName(student);
-		if(dbStudent == null){
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-	
 	/**
 	 * 注册时候检查学员名字是否存在（可用）：
 	 * 1、存在，PrintWriter写出{"valid":false}，名字已被注册
@@ -88,8 +69,9 @@ public class StudentController {
 		
 		JSONObject jo = new JSONObject();
 		PrintWriter pw = response.getWriter();
-		boolean valid = isNameExist(student);
-		if(valid){
+		Student dbStudent = studentService.queryByName(student);
+//		boolean valid = isNameExist(student);
+		if(dbStudent != null){
 			jo.put("valid", false);
 		}
 		else{
@@ -99,28 +81,6 @@ public class StudentController {
 		pw.flush();
 	}
 	
-//	/**
-//	 * 登录时候检查名字是否存在
-//	 * 1、存在，PrintWriter写出{"valid":true}，请输入密码登录
-//	 * 2、不存在，PrintWriter写出{"valid":false}，用户名不存在
-//	 * @param request
-//	 * @param response
-//	 * @throws IOException
-//	 */
-//	@RequestMapping(value = "/stuLoginNameCheck")
-//	public void stuLoginNameCheck(HttpServletRequest request,HttpServletResponse response) throws IOException{
-//		JSONObject jo = new JSONObject();
-//		PrintWriter pw = response.getWriter();
-//		boolean valid = isNameExist(request);
-//		if(valid){
-//			jo.put("valid", true);
-//		}
-//		else{
-//			jo.put("valid", false);
-//		}
-//		pw.write(jo.toString());
-//		pw.flush();
-//	}
 	
 	/**
 	 * 
@@ -145,6 +105,81 @@ public class StudentController {
 			jsonObject.put("valid", true);
 		}
 		printWriter.write(jsonObject.toString());
+		printWriter.flush();
+	}
+	
+	/**
+	 * 跳转到学员库
+	 * @return
+	 */
+	@RequestMapping(value = "/toStudentLib")
+	public ModelAndView toStudentLib(){
+		return new ModelAndView("/student/studentLib");
+	}
+	
+	/**
+	 * 跳转到订单详情页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toOrderDetail")
+	public ModelAndView toOrderDetail(){
+		return new ModelAndView("/student/orderDetail");
+	}
+	
+	/**
+	 * 跳转到新增订单页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toNewOrder")
+	public ModelAndView toNewOrder(){
+		return new ModelAndView("/student/newOrder");
+	}
+	
+	/**
+	 * 跳转到学员个人信息更新页面
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/toStudentInfoUpdate")
+	public ModelAndView toStudentInfoUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		Student student = new Student();
+		student.setStudentName(username);
+		Student dbStudent = studentService.queryByName(student);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/student/studentInfoUpdate");
+		modelAndView.addObject("dbStudent",dbStudent);
+		return modelAndView;
+	}
+	
+	
+	/**
+	 * 执行学员个人信息更新操作
+	 * 1、更新成功返回{"status","SUCCESS"}
+	 * 2、原密码错误返回{"status","ERROR"}
+	 * @param student
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/doStudentInfoUpdate")
+	public void doStudengInfoUpdate(@ModelAttribute Student student,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String formerPassword = request.getParameter("formerPassword");
+		Student dbStudent = studentService.queryById(student);
+		HttpSession session = request.getSession();
+		JSONObject jsonObject = new JSONObject();
+		if(formerPassword.equals(dbStudent.getStudentPassword())){
+			studentService.update(student);
+			jsonObject.put("status", "SUCCESS");
+			session.setAttribute("username", student.getStudentName());
+		}
+		else{
+			jsonObject.put("status", "ERROR");
+			jsonObject.put("message", "原密码错误！");
+		}
+		PrintWriter printWriter = response.getWriter();
+		printWriter.write(jsonObject.toJSONString());
 		printWriter.flush();
 	}
 }

@@ -16,13 +16,16 @@ public interface StudentService {
 	boolean delete(Student student);
 	
 	/*修改学员信息*/
-	Student update(Student student);
+	int update(Student student);
 	
 	/*根据名字查询*/
 	Student queryByName(Student student);
 	
 	/*根据手机号查询*/
 	Student queryByPhone(Student student);
+	
+	/*根据ID查询*/
+	Student queryById(Student student);
 	
 	/*各种条件查询*/
 }

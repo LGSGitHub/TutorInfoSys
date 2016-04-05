@@ -35,9 +35,9 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public Student update(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+	public int update(Student student) {
+		System.out.println("------执行修改学员信息方法------");
+		return studentMapper.updateByPrimaryKey(student);
 	}
 
 	@Override
@@ -50,6 +50,12 @@ public class StudentServiceImpl implements StudentService {
 	public Student queryByPhone(Student student) {
 		System.out.println("------执行根据手机号查询学员方法------");
 		return studentMapper.selectByPhone(student);
+	}
+
+	@Override
+	public Student queryById(Student student) {
+		System.out.println("------执行根据ID查询学员方法------");
+		return studentMapper.selectByPrimaryKey(student.getStudentId());
 	}
 
 }

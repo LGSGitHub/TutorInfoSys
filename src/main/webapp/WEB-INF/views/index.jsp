@@ -15,7 +15,7 @@
 
 <!-- <script src="<%=request.getContextPath() %>/lib/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath() %>/lib/js/jquery-2.1.4.min.js"></script> -->
-<script src="<%=request.getContextPath() %>/lib/js/index.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/lib/js/index.js"></script> --%>
 </head>
 <body>
 
@@ -29,14 +29,14 @@
 		<!-- 正文部分 -->
 
 		<!-- 教学风采（教员库连接） -->
-		<div id="teacherShowTitle">
+		<div id="teacherShowTitle" class="title">
 				<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-				<strong>教学风采</strong><a class="more" href="#">+更多</a>
+				<strong>教学风采</strong><a class="more" href="toTeacherLib.html">+更多</a>
 		</div>
 		<div id="teacherShow">
 			
 			<div id="carousel">
-				<div style="padding:0px 120px;" id="carousel-example-generic" class="carousel slide"
+				<div id="carousel-example-generic" class="carousel slide"
 					data-ride="carousel">
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
@@ -49,19 +49,139 @@
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
-							<img src="<%=request.getContextPath() %>/lib/images/xiaodishu.jpg" class="img-responsive"
-								alt="..." style="float: left;">
-							<div class="carousel-caption">hellohellohellohello</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan4_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<!-- <div><a href="#">王教员</a></div>
+									<div><a href="#">编号：1001</a></div>
+									<div><a href="#">在校大学生</a></div> -->
+									<div>
+										<a href="#">
+											王教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan4_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											王教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan4_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											王教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								
+							</div>
+							<%-- <img src="<%=request.getContextPath() %>/lib/images/jiaoyuan1_1.jpg" class="img-responsive"
+								alt="..."> --%>
+							<!-- <div class="carousel-caption">图片描述</div> -->
 						</div>
 						<div class="item">
-							<img src="<%=request.getContextPath() %>/lib/images/xiaodishu.jpg" class="img-responsive"
-								alt="..." style="float: left;">
-							<div class="carousel-caption">world</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan2_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<!-- <div><a href="#">王教员</a></div>
+									<div><a href="#">编号：1001</a></div>
+									<div><a href="#">在校大学生</a></div> -->
+									<div>
+										<a href="#">
+											李教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan2_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											李教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan2_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											李教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								
+							</div>
 						</div>
 						<div class="item">
-							<img src="<%=request.getContextPath() %>/lib/images/xiaodishu.jpg" class="img-responsive"
-								alt="..." style="float: left;">
-							<div class="carousel-caption">123</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan3_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<!-- <div><a href="#">王教员</a></div>
+									<div><a href="#">编号：1001</a></div>
+									<div><a href="#">在校大学生</a></div> -->
+									<div>
+										<a href="#">
+											刘教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan3_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											刘教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<a href="#"><img src="<%=request.getContextPath() %>/lib/images/jiaoyuan3_1.jpg" class="img-responsive"
+										alt="...">
+									</a>
+									<div>
+										<a href="#">
+											刘教员<br/>
+											编号：1001<br/>
+											在校大学生
+										</a>
+									</div>
+								</div>
+								
+							</div>
 						</div>
 					</div>
 
@@ -81,9 +201,9 @@
 		</div>
 
 		<!-- 学员库 -->
-		<div id="studentShowTitle">
+		<div id="studentShowTitle" class="title">
 				<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-				<strong>最新订单</strong><a class="more" href="#">+更多</a>
+				<strong>最新订单</strong><a class="more" href="toStudentLib.html">+更多</a>
 		</div>
 		<div id="studentShow">
 			
@@ -91,12 +211,12 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<td>编号</td>
-							<td>科目</td>
-							<td>地址</td>
-							<td>教员要求</td>
-							<td>时间</td>
-							<td>详细</td>
+							<th>编号</th>
+							<th>科目</th>
+							<th>地址</th>
+							<th>教员要求</th>
+							<th>时间</th>
+							<th>详细</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -114,7 +234,7 @@
 		</div>
 
 		<!-- 咨询/社区 -->
-		<div id="articleShowTitle">
+		<div id="articleShowTitle" class="title">
 				<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
 				<strong>咨询/社区</strong><a class="more" href="#">+更多</a>
 		</div>

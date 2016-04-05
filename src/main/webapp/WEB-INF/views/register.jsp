@@ -83,13 +83,14 @@
 				                    <div class="form-group">
 				                        <label class="col-sm-3 control-label">密码找回问题</label>
 				                        <div class="col-sm-5">
-				                            <select class="form-control" name="studentQuestion">
+				                       		<input type="text" class="form-control" name="studentQuestion" />
+				                            <!-- <select class="form-control" name="studentQuestion">
 				                                <option value="">-- 选择一个问题 --</option>
 				                                <option value="你的幸运数字是？">你的幸运数字是？</option>
 				                                <option value="你最喜欢的城市是？">你最喜欢的城市是？</option>
 				                                <option value="你最喜欢的动物是？">你最喜欢的动物是？</option>
 				                                <option value="你最喜欢的明星是？">你最喜欢的明星是？</option>
-				                            </select>
+				                            </select> -->
 				                        </div>
 				                    </div>
 				                    
@@ -182,7 +183,6 @@
 $(document).ready(function() {
 
 	$('#studentRegstForm').bootstrapValidator({
-//      live: 'disabled',
       message: 'This value is not valid',
       feedbackIcons: {
           valid: 'glyphicon glyphicon-ok',

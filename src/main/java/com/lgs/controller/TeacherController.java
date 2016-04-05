@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lgs.dto.Teacher;
@@ -95,6 +96,24 @@ public class TeacherController {
 		}
 		printWriter.write(jsonObject.toString());
 		printWriter.flush();
+	}
+	
+	/**
+	 * 跳转到教员库
+	 * @return
+	 */
+	@RequestMapping(value = "/toTeacherLib")
+	public ModelAndView toTeacherLib(){
+		return new ModelAndView("/teacher/teacherLib");
+	}
+	
+	/**
+	 * 跳转到教员详情
+	 * @return
+	 */
+	@RequestMapping(value = "/toTeacherDetail")
+	public ModelAndView toTeacherDetail(){
+		return new ModelAndView("/teacher/teacherDetail");
 	}
 
 }

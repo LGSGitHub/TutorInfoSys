@@ -4,13 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
+<title>个人信息</title>
+<!-- 头部 -->
+<jsp:include page="../head.jsp" />
+
+<style type="text/css">
+	
+</style>
 </head>
 <body>
-	<hr style="background-color:#6A5ACD;height:5px;">
-	<div style="border:2px solid #bababa;">
-		<p>咨询热线：020-8859859</p>
-		<p>版权所有：LGS | 广东家教网络有限公司 | 地址：xxx省xxx市xxx区xxx街道xxx号</p>
+
+	<div class="container">
+		
 	</div>
 
 </body>

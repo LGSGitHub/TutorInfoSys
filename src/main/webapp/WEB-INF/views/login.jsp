@@ -155,7 +155,7 @@
 							        dataType : "json",
 							        data : jsonData,
 							        async: false,
-							        url : "/TutorInfoSys/login.html" ,
+							        url : "login.html" ,
 							        error : function(data) {
 							            alert( "网络出错 " )
 							        },

@@ -26,7 +26,7 @@ import com.lgs.service.TeacherService;
  *
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 	
 	@Autowired
 	AdminService adminService;
@@ -36,6 +36,25 @@ public class LoginController {
 	
 	@Autowired
 	TeacherService teacherService;
+	
+	/**
+	 * 调用基类方法进入首页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public ModelAndView toIndex(HttpServletRequest request){
+		ModelAndView modelAndView = new ModelAndView();
+		/*取得当前登录的用户名，没登录则返回null*/
+		String username = getUserName(request);
+		/*取得当前登录的角色，没登录则返回null*/
+		String role = getRole(request);
+		
+		modelAndView.setViewName("/index");
+		modelAndView.addObject("username", username);
+		modelAndView.addObject("role", role);
+        return modelAndView;
+    }
 
 	/**
 	 * 
@@ -86,9 +105,14 @@ public class LoginController {
 				Student dbStudent = studentService.queryByName(loginStudent);
 				if(dbStudent != null){
 					if(username.equals(dbStudent.getStudentName()) && password.equals(dbStudent.getStudentPassword())){
+						/*把登录成功的学员名字，角色，学员id存放到session中*/
 						session.setAttribute("username", username);
+						session.setAttribute("role", "student");
+						session.setAttribute("userId", dbStudent.getStudentId());
+						
 						jsonObject.put("status", "SUCCESS");
 						jsonObject.put("student", dbStudent);
+						jsonObject.put("role", "student");
 						System.out.println("返回登录状态和信息："+jsonObject.toJSONString());
 					}
 					else{
@@ -113,8 +137,11 @@ public class LoginController {
 				if(dbTeacher != null){
 					if(username.equals(dbTeacher.getTeacherName()) && password.equals(dbTeacher.getTeacherPassword())){
 						session.setAttribute("username", username);
+						session.setAttribute("role", "teacher");
+						session.setAttribute("userId", dbTeacher.getTeacherId());
 						jsonObject.put("status", "SUCCESS");
 						jsonObject.put("teacher", dbTeacher);
+						jsonObject.put("role", "teacher");
 						System.out.println("返回登录信息状态："+jsonObject.toJSONString());
 					}
 					else{
@@ -144,9 +171,11 @@ public class LoginController {
 					if(username.equals(dbAdmin.getAdminName()) && password.equals(dbAdmin.getAdminPassword())){
 						
 						session.setAttribute("username", username);
+						session.setAttribute("role", "admin");
+						session.setAttribute("userId", dbAdmin.getAdminId());
 						jsonObject.put("status", "SUCCESS");
 						jsonObject.put("admin", dbAdmin);
-						
+						jsonObject.put("role", "admin");
 						System.out.println("返回登录状态："+jsonObject.toJSONString());
 					}
 					else{
@@ -171,25 +200,46 @@ public class LoginController {
 			jsonObject.put("status", "FALSE");
 			System.out.println("请正确填写信息，必输信息不能为空！");
 		}
-		
-		
 		out.write(jsonObject.toString());
 		out.flush();
 	}
 	
-	@RequestMapping(value = "/logout")
-	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	/**
+	 * 用户是否登录
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "isLogin")
+	public void isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
-		session.setAttribute("username", null);
-		PrintWriter printWriter = response.getWriter();
+		String studentName = (String) session.getAttribute("username");
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("status", "SUCCESS");
+		PrintWriter printWriter = response.getWriter();
+		if(studentName == null){
+			jsonObject.put("status", false);
+			jsonObject.put("message", "登录信息失效，请重新登录！");
+			System.out.println(jsonObject.toJSONString());
+		}
+		else{
+			jsonObject.put("status", true);
+		}
 		printWriter.write(jsonObject.toJSONString());
 		printWriter.flush();
-		ModelAndView modelAndView = new ModelAndView();
+	}
+	
+	/**
+	 * 用户退出登录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		session.setAttribute("username", null);
 		System.out.println("退出登录");
-		modelAndView.setViewName("/index");
-        return modelAndView;
+		return new ModelAndView("/index");
 	}
 	
 }
