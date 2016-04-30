@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgs.mapper.StudentOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.lgs.dto.StudentOrder" >
+    <id column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="STUDENT_ID" property="studentId" jdbcType="INTEGER" />
+    <result column="S_NAME" property="sName" jdbcType="VARCHAR" />
+    <result column="S_SEX" property="sSex" jdbcType="VARCHAR" />
+    <result column="S_AGE" property="sAge" jdbcType="INTEGER" />
+    <result column="S_PHONE" property="sPhone" jdbcType="VARCHAR" />
+    <result column="S_ADDRESS" property="sAddress" jdbcType="VARCHAR" />
+    <result column="S_DETAIL_ADDRESS" property="sDetailAddress" jdbcType="VARCHAR" />
+    <result column="S_GRADE" property="sGrade" jdbcType="VARCHAR" />
+    <result column="S_SUBJECT" property="sSubject" jdbcType="VARCHAR" />
+    <result column="S_CONDITION" property="sCondition" jdbcType="VARCHAR" />
+    <result column="S_CONDITION_REMARKS" property="sConditionRemarks" jdbcType="VARCHAR" />
+    <result column="S_TIME" property="sTime" jdbcType="VARCHAR" />
+    <result column="S_REQUEST_SEX" property="sRequestSex" jdbcType="VARCHAR" />
+    <result column="S_REQUEST_QUALIFICATION" property="sRequestQualification" jdbcType="VARCHAR" />
+    <result column="S_QUALIFICATION_REMARKS" property="sQualificationRemarks" jdbcType="VARCHAR" />
+    <result column="S_TEACHER_WAY" property="sTeacherWay" jdbcType="VARCHAR" />
+    <result column="S_PRICE" property="sPrice" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="TEACHER_ID" property="teacherId" jdbcType="INTEGER" />
+    <result column="START_DATE" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="END_DATE" property="endDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORDER_ID, STUDENT_ID, S_NAME, S_SEX, S_AGE, S_PHONE, S_ADDRESS, S_DETAIL_ADDRESS, 
+    S_GRADE, S_SUBJECT, S_CONDITION, S_CONDITION_REMARKS, S_TIME, S_REQUEST_SEX, S_REQUEST_QUALIFICATION, 
+    S_QUALIFICATION_REMARKS, S_TEACHER_WAY, S_PRICE, ORDER_STATUS, TEACHER_ID, START_DATE, 
+    END_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student_order
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student_order
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.dto.StudentOrder" >
+    insert into student_order (ORDER_ID, STUDENT_ID, S_NAME, 
+      S_SEX, S_AGE, S_PHONE, 
+      S_ADDRESS, S_DETAIL_ADDRESS, S_GRADE, 
+      S_SUBJECT, S_CONDITION, S_CONDITION_REMARKS, 
+      S_TIME, S_REQUEST_SEX, S_REQUEST_QUALIFICATION, 
+      S_QUALIFICATION_REMARKS, S_TEACHER_WAY, S_PRICE, 
+      <!-- ORDER_STATUS, --> TEACHER_ID, <!-- START_DATE, --> 
+      END_DATE)
+    values (#{orderId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{sName,jdbcType=VARCHAR}, 
+      #{sSex,jdbcType=VARCHAR}, #{sAge,jdbcType=INTEGER}, #{sPhone,jdbcType=VARCHAR}, 
+      #{sAddress,jdbcType=VARCHAR}, #{sDetailAddress,jdbcType=VARCHAR}, #{sGrade,jdbcType=VARCHAR}, 
+      #{sSubject,jdbcType=VARCHAR}, #{sCondition,jdbcType=VARCHAR}, #{sConditionRemarks,jdbcType=VARCHAR}, 
+      #{sTime,jdbcType=VARCHAR}, #{sRequestSex,jdbcType=VARCHAR}, #{sRequestQualification,jdbcType=VARCHAR}, 
+      #{sQualificationRemarks,jdbcType=VARCHAR}, #{sTeacherWay,jdbcType=VARCHAR}, #{sPrice,jdbcType=VARCHAR}, 
+      <!-- #{orderStatus,jdbcType=VARCHAR}, --> #{teacherId,jdbcType=INTEGER}, <!-- #{startDate,jdbcType=TIMESTAMP}, --> 
+      #{endDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.dto.StudentOrder" >
+    insert into student_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="studentId != null" >
+        STUDENT_ID,
+      </if>
+      <if test="sName != null" >
+        S_NAME,
+      </if>
+      <if test="sSex != null" >
+        S_SEX,
+      </if>
+      <if test="sAge != null" >
+        S_AGE,
+      </if>
+      <if test="sPhone != null" >
+        S_PHONE,
+      </if>
+      <if test="sAddress != null" >
+        S_ADDRESS,
+      </if>
+      <if test="sDetailAddress != null" >
+        S_DETAIL_ADDRESS,
+      </if>
+      <if test="sGrade != null" >
+        S_GRADE,
+      </if>
+      <if test="sSubject != null" >
+        S_SUBJECT,
+      </if>
+      <if test="sCondition != null" >
+        S_CONDITION,
+      </if>
+      <if test="sConditionRemarks != null" >
+        S_CONDITION_REMARKS,
+      </if>
+      <if test="sTime != null" >
+        S_TIME,
+      </if>
+      <if test="sRequestSex != null" >
+        S_REQUEST_SEX,
+      </if>
+      <if test="sRequestQualification != null" >
+        S_REQUEST_QUALIFICATION,
+      </if>
+      <if test="sQualificationRemarks != null" >
+        S_QUALIFICATION_REMARKS,
+      </if>
+      <if test="sTeacherWay != null" >
+        S_TEACHER_WAY,
+      </if>
+      <if test="sPrice != null" >
+        S_PRICE,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID,
+      </if>
+      <if test="startDate != null" >
+        START_DATE,
+      </if>
+      <if test="endDate != null" >
+        END_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null" >
+        #{sAge,jdbcType=INTEGER},
+      </if>
+      <if test="sPhone != null" >
+        #{sPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null" >
+        #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sDetailAddress != null" >
+        #{sDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sGrade != null" >
+        #{sGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="sSubject != null" >
+        #{sSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="sCondition != null" >
+        #{sCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="sConditionRemarks != null" >
+        #{sConditionRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sTime != null" >
+        #{sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sRequestSex != null" >
+        #{sRequestSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sRequestQualification != null" >
+        #{sRequestQualification,jdbcType=VARCHAR},
+      </if>
+      <if test="sQualificationRemarks != null" >
+        #{sQualificationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sTeacherWay != null" >
+        #{sTeacherWay,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        #{sPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.dto.StudentOrder" >
+    update student_order
+    <set >
+      <if test="studentId != null" >
+        STUDENT_ID = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="sName != null" >
+        S_NAME = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        S_SEX = #{sSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null" >
+        S_AGE = #{sAge,jdbcType=INTEGER},
+      </if>
+      <if test="sPhone != null" >
+        S_PHONE = #{sPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null" >
+        S_ADDRESS = #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sDetailAddress != null" >
+        S_DETAIL_ADDRESS = #{sDetailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sGrade != null" >
+        S_GRADE = #{sGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="sSubject != null" >
+        S_SUBJECT = #{sSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="sCondition != null" >
+        S_CONDITION = #{sCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="sConditionRemarks != null" >
+        S_CONDITION_REMARKS = #{sConditionRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sTime != null" >
+        S_TIME = #{sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="sRequestSex != null" >
+        S_REQUEST_SEX = #{sRequestSex,jdbcType=VARCHAR},
+      </if>
+      <if test="sRequestQualification != null" >
+        S_REQUEST_QUALIFICATION = #{sRequestQualification,jdbcType=VARCHAR},
+      </if>
+      <if test="sQualificationRemarks != null" >
+        S_QUALIFICATION_REMARKS = #{sQualificationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="sTeacherWay != null" >
+        S_TEACHER_WAY = #{sTeacherWay,jdbcType=VARCHAR},
+      </if>
+      <if test="sPrice != null" >
+        S_PRICE = #{sPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        END_DATE = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.dto.StudentOrder" >
+    update student_order
+    set STUDENT_ID = #{studentId,jdbcType=INTEGER},
+      S_NAME = #{sName,jdbcType=VARCHAR},
+      S_SEX = #{sSex,jdbcType=VARCHAR},
+      S_AGE = #{sAge,jdbcType=INTEGER},
+      S_PHONE = #{sPhone,jdbcType=VARCHAR},
+      S_ADDRESS = #{sAddress,jdbcType=VARCHAR},
+      S_DETAIL_ADDRESS = #{sDetailAddress,jdbcType=VARCHAR},
+      S_GRADE = #{sGrade,jdbcType=VARCHAR},
+      S_SUBJECT = #{sSubject,jdbcType=VARCHAR},
+      S_CONDITION = #{sCondition,jdbcType=VARCHAR},
+      S_CONDITION_REMARKS = #{sConditionRemarks,jdbcType=VARCHAR},
+      S_TIME = #{sTime,jdbcType=VARCHAR},
+      S_REQUEST_SEX = #{sRequestSex,jdbcType=VARCHAR},
+      S_REQUEST_QUALIFICATION = #{sRequestQualification,jdbcType=VARCHAR},
+      S_QUALIFICATION_REMARKS = #{sQualificationRemarks,jdbcType=VARCHAR},
+      S_TEACHER_WAY = #{sTeacherWay,jdbcType=VARCHAR},
+      S_PRICE = #{sPrice,jdbcType=VARCHAR},
+      ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+      TEACHER_ID = #{teacherId,jdbcType=INTEGER},
+      START_DATE = #{startDate,jdbcType=TIMESTAMP},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP}
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自行添加的写在下面 -->
+  
+  <!-- 根据学员ID查询 -->
+  <select id="selectByStuId" resultMap="BaseResultMap" parameterType="com.lgs.dto.StudentOrder">
+  	select 
+    <include refid="Base_Column_List" />
+    from student_order
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询所有 -->
+  <select id="selectAllOrders" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from student_order
+    where ORDER_STATUS = '发布中' AND TEACHER_ID IS NULL
+  </select>
+  
+  <!-- 条件查询 -->
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.lgs.dto.StudentOrder">
+  	select 
+    <include refid="Base_Column_List" />
+    from student_order
+    <where>
+    	<if test="sSubject != null and sSubject !=''">
+    		S_SUBJECT LIKE CONCAT(CONCAT('%', #{sSubject,jdbcType=VARCHAR}), '%')
+    	</if>
+    	<if test="sAddress != null and sAddress != ''" >
+	        AND S_ADDRESS LIKE CONCAT(CONCAT('%', #{sAddress,jdbcType=VARCHAR}), '%')
+	    </if>
+	    <if test="sRequestQualification != null and sRequestQualification != ''" >
+	        AND S_REQUEST_QUALIFICATION = #{sRequestQualification,jdbcType=VARCHAR}
+	    </if>
+	    <if test="sSex != null and sSex != ''" >
+	        AND S_SEX = #{sSex,jdbcType=VARCHAR}
+	    </if>
+	    <if test="sRequestSex != null and sRequestSex != ''" >
+	        AND S_REQUEST_SEX = #{sRequestSex,jdbcType=VARCHAR}
+	    </if>
+	    AND ORDER_STATUS = '发布中' AND TEACHER_ID IS NULL
+    </where>
+  </select>
+  
+  <!-- 根据学员ID查询其最新插入的学员订单 -->
+  <select id="selectLatestOrder" resultMap="BaseResultMap" parameterType="com.lgs.dto.StudentOrder">
+  	select 
+    <include refid="Base_Column_List" />
+    from student_order
+    where STUDENT_ID = #{studentId,jdbcType=INTEGER}
+    order by ORDER_ID DESC limit 1
+  </select>
+  
+  <!-- 根据orderId更新学员订单状态 -->
+  <update id="updateStatusByOrderId" parameterType="com.lgs.dto.StudentOrder" >
+    update student_order
+    set ORDER_STATUS = #{orderStatus,jdbcType=VARCHAR},
+      END_DATE = #{endDate,jdbcType=TIMESTAMP}
+    where ORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

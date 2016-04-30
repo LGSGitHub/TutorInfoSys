@@ -1,5 +1,7 @@
 package com.lgs.mapper;
 
+import java.util.List;
+
 import com.lgs.dto.Teacher;
 
 public interface TeacherMapper {
@@ -19,4 +21,8 @@ public interface TeacherMapper {
     Teacher selectByName(Teacher teacher);
     
     Teacher selectByPhone(Teacher teacher);
+    
+    List<Teacher> selectAllTeachers();
+    
+    List<Teacher> selectByCondition(Teacher teacher);
 }

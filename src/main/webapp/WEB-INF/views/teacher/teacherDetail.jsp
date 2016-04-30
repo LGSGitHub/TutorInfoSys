@@ -10,7 +10,7 @@
 
 <style type="text/css">
 	#btnsDiv{
-		margin:0px auto;
+		margin:10px auto;
 		width:500px;
 	}
 </style>
@@ -26,25 +26,25 @@
 		</div>
 		
 		<div class="row afterTitleDiv">
-			<div class="col-sm-2 textLabel">教员编号：${teacherId }</div>
-			<div class="col-sm-2">1001</div>
-			<div class="col-sm-2 textLabel">教员名字：${teacherName }</div>
-			<div class="col-sm-5">李教员</div>
+			<div class="col-sm-2 textLabel">教员编号：</div>
+			<div class="col-sm-3">${dbTeacher.teacherId }</div>
+			<div class="col-sm-2 textLabel">教员名字：</div>
+			<div class="col-sm-5">${dbTeacher.teacherName }</div>
 		
-			<div class="col-sm-2 textLabel">教员性别：${teacherGender }</div>
-			<div class="col-sm-2">女</div>
-			<div class="col-sm-2 textLabel">出生日期：${teacherBirthday }</div>
-			<div class="col-sm-5">1995-09-24</div>
+			<div class="col-sm-2 textLabel">教员性别：</div>
+			<div class="col-sm-3">${dbTeacher.teacherGender }</div>
+			<div class="col-sm-2 textLabel">出生日期：</div>
+			<div class="col-sm-5">${dbTeacher.teacherBirthday }</div>
 			
-			<div class="col-sm-2 textLabel">就读/毕业院校：${teacherSchool }</div>
-			<div class="col-sm-2">华南理工大学</div>
-			<div class="col-sm-2 textLabel">主修专业：${teacherMajor }</div>
-			<div class="col-sm-5">软件工程</div>
+			<div class="col-sm-2 textLabel">就读/毕业院校：</div>
+			<div class="col-sm-3">${dbTeacher.teacherSchool }</div>
+			<div class="col-sm-2 textLabel">主修专业：</div>
+			<div class="col-sm-5">${dbTeacher.teacherMajor }</div>
 			
-			<div class="col-sm-2 textLabel">政治面貌：${teacherPolitical }</div>
-			<div class="col-sm-2">共青团员</div>
-			<div class="col-sm-2 textLabel">目前身份：${teacherNowIdentity }</div>
-			<div class="col-sm-5">大二学生</div>
+			<div class="col-sm-2 textLabel">政治面貌：</div>
+			<div class="col-sm-3">${dbTeacher.teacherPolitical }</div>
+			<div class="col-sm-2 textLabel">目前身份：</div>
+			<div class="col-sm-5">${dbTeacher.teacherNowIdentity }</div>
 			
 		</div>
 		
@@ -60,39 +60,163 @@
 				<tbody>
 					<tr>
 						<th width="20%" class="textLabel">授课科目</th>
-						<td width="80%">小学语文，小学数学，初中语文，初中数学，初中英语，高中语文，高中数学，高中英语，高中历史，高中政治</td>
+						<td width="80%">${dbTeacher.teacherSubject }</td>
 					</tr>
 					<tr>
 						<th class="textLabel">授课区域</th>
-						<td>花都,越秀,海珠,天河,白云,黄埔</td>
+						<td>${dbTeacher.teachPlace }</td>
 					</tr>
 					<tr>
 						<th class="textLabel">家教经验</th>
-						<td>2年</td>
+						<td>${dbTeacher.teacherExpYear }</td>
 					</tr>
 					<tr>
 						<th class="textLabel">薪酬要求</th>
-						<td>80元/小时</td>
+						<td>${dbTeacher.teacherSalary }元/小时</td>
 					</tr>
 					<tr>
 						<th class="textLabel">教学方式</th>
-						<td>教员上门</td>
+						<td>${dbTeacher.teacherTeachWay }</td>
 					</tr>
 					<tr>
 						<th class="textLabel">自我描述</th>
-						<td>本人在教育机构担任近三年的外教助教，英语发音标准，沟通流利。加上多次参加支教义教活动，有4个孩子的家教经验，本人在教学方面积累了一定的经验。通过商务英语（BEC)中级考试，托福考试98分，英语四六级高分通过。擅长英语口语教学，觉得能够激发学生的自主学习才是教学真正的意义。</td>
+						<td>${dbTeacher.teacherShow }</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div id="btnsDiv">
-			<button type="button" class="btn btn-primary">在线预约</button>
-			<button type="button" class="btn btn-success">收藏教员</button>
+			<input type="button" class="btn btn-primary" id="bookBtn" value="在线预约"/>
+			<input type="button" class="btn btn-success" id="collectBtn" value="收藏教员"/>
+			<input type="button" class="btn btn-warning" id="createMessgBtn" value="给ta留言"/>
 		</div>
+		<form action="toNewOrder.html" method="post" id="toNewOrderForm">
+			<input type="hidden" id="teacherId" name="teacherId" value="${dbTeacher.teacherId }"/>
+		</form>
+		
+		<!-- 发送留言模态框 -->
+		<div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title">please input your message</h4>
+					</div><!-- modal-header -->
+	
+					<form id="sendMessageForm" method="post">
+					
+					<div class="modal-body">
+						<div class="form-group">
+							<label></label>
+							<div>
+								<input name="receiverId" type="hidden" value="${dbTeacher.teacherId }"/>
+							</div>
+						</div>
+						<div class="form-group">
+					    	<label></label>
+					        <div>
+					        	<textarea name="messageContent" style="width:100%;height:150px;resize: none;"></textarea>
+					        </div>
+					    </div>
+						
+					</div> <!-- modal body  -->
+					
+					<div class="modal-footer">
+								<button type="submit" class="btn btn-primary" id="sendMessgBtn">Submit</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div> <!-- modal-footer -->
+					</form> <!-- sendMessageForm -->
+				</div><!-- modal-content -->
+			</div><!-- modal-dialog -->
+		</div>
+		
 	</div>
 
 <script type="text/javascript">
-	
+	$(document).ready(function(){
+		
+		/* 表单验证 */
+		$("#sendMessageForm").bootstrapValidator({
+			message: 'This value is not valid',
+		    feedbackIcons: {
+		        valid: 'glyphicon glyphicon-ok',
+		        invalid: 'glyphicon glyphicon-remove',
+		        validating: 'glyphicon glyphicon-refresh'
+		    },
+		    fields: {
+		    	messageContent :{
+		    		message: 'The message is not valid',
+		            validators: {
+		            	notEmpty: {
+		                    message: 'The message is required and cannot be empty'
+		                }
+		            }
+		    	}
+			}
+		});/* 表单验证 */
+		
+		/* 预约按钮点击事件 */
+		$("#bookBtn").click(function(){
+			$.ajax({
+				type : "post",
+				dataType : "json",
+				url : "studentBookTeacher.html",
+				success : function(data){
+					if(data.status == "SUCCESS"){
+						/* 跳转到新增订单页面，传递teacherId */
+						/* location.href="toNewOrder.html?teacherId="+$("#teacherId").val(); */
+						$("#toNewOrderForm").submit();
+					}
+					else{
+						alert(data.message);
+					}
+				},
+				error : function(data){
+					alert("网络出错！")
+				}
+			})
+		})/* 预约按钮点击事件 */
+		
+		/* 给他留言按钮点击事件 */
+		$("#createMessgBtn").click(function(){
+			$.ajax({
+	    		type:"post",
+	    		dataType:"json",
+	    		url:"isLogin.html",
+	    		error:function(data){
+	    			alert("网络出错")
+	    		},
+	    		success:function(data){
+	    			if(data.status == true){
+	    				/* 显示发送留言消息模态框 */
+		    			$("#sendMessageModal").modal('show');
+	    			}
+	    			else{
+	    				alert(data.message);
+	    			}
+	    		}
+	    	});
+		})/* 给他留言按钮点击事件 */
+		
+		/* 发送留言submit按钮点击事件 */
+		$("#sendMessgBtn").click(function(){
+			var formData = $("#sendMessageForm").serialize();
+			$.ajax({
+	    		type:"post",
+	    		dataType:"json",
+	    		data : formData,
+	    		url:"sendMessage.html",
+	    		error:function(data){
+	    			alert("网络出错")
+	    		},
+	    		success:function(data){
+	    			alert(data.status)
+	    		}
+	    	});
+		})/* 发送留言submit按钮点击事件 */
+	})
 </script>
 </body>
 </html>

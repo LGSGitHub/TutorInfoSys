@@ -212,13 +212,12 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(value = "isLogin")
 	public void isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		HttpSession session = request.getSession();
-		String studentName = (String) session.getAttribute("username");
+		String studentName = getUserName(request);
 		JSONObject jsonObject = new JSONObject();
 		PrintWriter printWriter = response.getWriter();
 		if(studentName == null){
 			jsonObject.put("status", false);
-			jsonObject.put("message", "登录信息失效，请重新登录！");
+			jsonObject.put("message", "未登录或者登录信息失效，请重新登录！");
 			System.out.println(jsonObject.toJSONString());
 		}
 		else{
@@ -238,8 +237,10 @@ public class LoginController extends BaseController{
 	public ModelAndView logout(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		session.setAttribute("username", null);
+		session.setAttribute("role", null);
+		session.setAttribute("userId", null);
 		System.out.println("退出登录");
-		return new ModelAndView("/index");
+		return new ModelAndView("redirect:/index.html");
 	}
 	
 }

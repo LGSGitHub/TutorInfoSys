@@ -15,6 +15,12 @@
 <body>
 	
 	<div class="container">
+		<!-- 查看/修改个人信息标题 -->
+		<div class="title">
+				<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+				<strong>查看/修改个人信息</strong>
+		</div>
+		<div class="row">
 		<form id="studentUpdateForm" method="post" class="form-horizontal">
 			
 			<div class="form-group">
@@ -81,6 +87,7 @@
 				</div>
 			</div>
 		</form>
+		</div>
 	</div>
 
 <script type="text/javascript">
@@ -201,6 +208,7 @@
 				success:function(data){
 					if(data.status == "SUCCESS"){
 						alert("更新成功！");
+						window.location.reload();//刷新当前页面.
 					}
 					else{
 						alert("原密码错误！");

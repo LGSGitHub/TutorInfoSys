@@ -8,13 +8,21 @@
 <link href="<%=request.getContextPath() %>/lib/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath() %>/lib/css/bootstrapValidator.css"
 	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath() %>/lib/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" type="text/css">
 	
 <script src="<%=request.getContextPath() %>/lib/js/jquery-2.1.4.min.js"></script>
 <script src="<%=request.getContextPath() %>/lib/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/lib/js/bootstrapValidator.js"></script>
-<%-- <script type="text/javascript"
-	src="<%=request.getContextPath()%>/lib/js/zh_CN.js"></script> --%>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/js/bootstrap-datetimepicker.fr.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/lib/js/zh_CN.js"></script>
 <%-- <script src="<%=request.getContextPath() %>/lib/js/head.js"></script> --%>
 
 <style type="text/css">
@@ -59,10 +67,7 @@
 <body style="min-width: 800px; background-color:#D1EEEE;">
 	<!-- 隐藏存放的变量 -->
 	<div style="display: none;">
-		<!-- 消息数量 -->
-		<input id="countMassage" type="hidden" value="" /> 
 		<!-- 当前登录用户名 -->
-		<%-- <input id="username" type="hidden" value="<%=session.getAttribute("username") %>" /> --%>
 		<input id="username" type="hidden" value="${username }" />
 		<!-- 当前登录角色 -->
 		<input id="role" type="hidden" value="${role }" />
@@ -97,7 +102,12 @@
 								</div>
 								
 								<div class="col-sm-2">
-									<button type="button" class="btn btn-info">消息<span class="badge">42</span></button>
+									<button id="messageBtn" type="button" class="btn btn-info">消息<span id="messageSpan" class="badge"></span></button>
+									
+									<!-- 未读留言数量表单 -->
+									<form id="messageCountForm" action="toMyMessage.html" method="post">
+										<input type="hidden" name="messageCount" id="messageCount"/>
+									</form>
 								</div>
 								
 								<div class="col-sm-4">
@@ -111,8 +121,8 @@
 										<ul id="dropdown-menu-ul" class="dropdown-menu" aria-labelledby="dropdownMenu1">
 											<li><a href="javascript:void(0);" target="_blank" id="personalInfoLink">查看个人信息</a></li>
 											<!-- <li><a href="#">修改密码</a></li> -->
-											<li><a href="#">收藏夹</a></li>
-											<li><a href="#">我的订单</a></li>
+											<li><a href="javascript:void(0);">收藏夹</a></li>
+											<li><a href="toMyReservation.html">我的订单</a></li>
 										</ul>
 									</div>
 								</div>
@@ -146,6 +156,31 @@ $(function(){
 			$("#dropdown-menu-ul").append("<li><a href='toNewOrder.html'>发布订单</a></li>");
 		}
 	}
+	getNewMessage();
+	/* 定时调用方法查询未读消息数目 ,定时为1分钟*/
+	setInterval("getNewMessage()", 60000);
+	
+	/* 未读消息按钮点击事件 */
+	$("#messageBtn").click(function(){
+		$.ajax({
+			type :"post",
+			dataType :"json",
+			url :"isLogin.html",
+			success :function(data){
+				if(data.status == true){
+					/* 跳转到未读消息页面 */
+					/* location.href="toMyNewMessage.html"; */
+					$("#messageCountForm").submit();
+				}
+				else{
+					alert(data.message);
+				}
+			},
+			error : function(){
+				alert("网络出错")
+			}
+		})
+	})
 	
 	/* 退出登录 */
 	$("#logoutBtn").click(function(){
@@ -184,6 +219,22 @@ $(function(){
 		
 	});
 });
+
+/* 查询未读消息数量 */
+function getNewMessage(){
+	$.ajax({
+		type : "post",
+		dataType : "json",
+		url : "queryMyNewMessage.html",
+		success : function(data){
+			$("#messageSpan").html(data.listSize); // 设置页面头的显示
+			$("#messageCount").val(data.listSize); // 提交给留言页面未读留言数量的标志
+		},
+		error : function(data){
+			alert("网络出错!")
+		}
+	});
+}
 </script>
 </body>
 

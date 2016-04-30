@@ -162,12 +162,14 @@
 							        success : function(data) {
 							        	/* var obj = JSON.parse(data)
 							            alert(obj.adminName) */
-							            alert(data.status);
 							            if(data.status == "ERROR"){
 							            	alert("用户名和密码不正确");
 							            }
 							            else if(data.status == "FAIL"){
 							            	alert("用户名不存在");
+							            }
+							            else if(data.status == "FALSE"){
+							            	alert("请正确填写信息")
 							            }
 							            else{
 							            	alert("登录成功")

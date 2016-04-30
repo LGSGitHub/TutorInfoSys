@@ -118,30 +118,11 @@ public class StudentController extends BaseController{
 	}
 	
 	/**
-	 * 跳转到订单详情页面
-	 * @return
-	 */
-	@RequestMapping(value = "/toOrderDetail")
-	public ModelAndView toOrderDetail(){
-		return new ModelAndView("/student/orderDetail");
-	}
-	
-	/**
-	 * 跳转到新增订单页面
-	 * @return
-	 */
-	@RequestMapping(value = "/toNewOrder")
-	public ModelAndView toNewOrder(){
-		return new ModelAndView("/student/newOrder");
-	}
-	
-	/**
 	 * 跳转到学员个人信息更新页面
 	 * @return
-	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/toStudentInfoUpdate")
-	public ModelAndView toStudentInfoUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ModelAndView toStudentInfoUpdate(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		Student student = new Student();
@@ -164,7 +145,7 @@ public class StudentController extends BaseController{
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/doStudentInfoUpdate")
-	public void doStudengInfoUpdate(@ModelAttribute Student student,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public void doStudentInfoUpdate(@ModelAttribute Student student,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String formerPassword = request.getParameter("formerPassword");
 		Student dbStudent = studentService.queryById(student);
 		HttpSession session = request.getSession();

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgs.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.lgs.dto.Message" >
+    <id column="MESSAGE_ID" property="messageId" jdbcType="INTEGER" />
+    <result column="RECEIVER_ID" property="receiverId" jdbcType="INTEGER" />
+    <result column="SENTER_ID" property="senterId" jdbcType="INTEGER" />
+    <result column="MESSAGE_CONTENT" property="messageContent" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="SENDTIME" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MESSAGE_ID, RECEIVER_ID, SENTER_ID, MESSAGE_CONTENT, STATUS, SENDTIME, ORDER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where MESSAGE_ID = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where MESSAGE_ID = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.dto.Message" >
+    insert into message (MESSAGE_ID, RECEIVER_ID, SENTER_ID, 
+      MESSAGE_CONTENT, <!-- STATUS, SENDTIME, --> 
+      ORDER_ID)
+    values (#{messageId,jdbcType=INTEGER}, #{receiverId,jdbcType=INTEGER}, #{senterId,jdbcType=INTEGER}, 
+      #{messageContent,jdbcType=VARCHAR}, <!-- #{status,jdbcType=VARCHAR}, #{sendtime,jdbcType=TIMESTAMP},  -->
+      #{orderId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.dto.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="receiverId != null" >
+        RECEIVER_ID,
+      </if>
+      <if test="senterId != null" >
+        SENTER_ID,
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="senterId != null" >
+        #{senterId,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.dto.Message" >
+    update message
+    <set >
+      <if test="receiverId != null" >
+        RECEIVER_ID = #{receiverId,jdbcType=INTEGER},
+      </if>
+      <if test="senterId != null" >
+        SENTER_ID = #{senterId,jdbcType=INTEGER},
+      </if>
+      <if test="messageContent != null" >
+        MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where MESSAGE_ID = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.dto.Message" >
+    update message
+    set RECEIVER_ID = #{receiverId,jdbcType=INTEGER},
+      SENTER_ID = #{senterId,jdbcType=INTEGER},
+      MESSAGE_CONTENT = #{messageContent,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      SENDTIME = #{sendtime,jdbcType=TIMESTAMP},
+      ORDER_ID = #{orderId,jdbcType=INTEGER}
+    where MESSAGE_ID = #{messageId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 以下为自行添加 -->
+  
+  <!-- 查询当前用户的所有留言 -->
+  <select id="selectAllMyMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select distinct
+    <include refid="Base_Column_List" />
+    <!-- MESSAGE_ID, RECEIVER_ID, SENTER_ID, MESSAGE_CONTENT, STATUS, SENDTIME -->
+    from message
+    where SENTER_ID = #{userId,jdbcType=INTEGER} OR RECEIVER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询当前用户的未读留言 -->
+  <select id="selsectMyNewMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select
+    <include refid="Base_Column_List" />
+    from message
+    where SENTER_ID = #{userId,jdbcType=INTEGER} OR RECEIVER_ID = #{userId,jdbcType=INTEGER} AND STATUS='未读'
+  </select>
+  
+  <!-- 修改留言状态为“已读” -->
+  <update id="updateStatus" parameterType="com.lgs.dto.Message">
+  	update message
+  	set status = '已读'
+  	where RECEIVER_ID = #{receiverId,jdbcType=INTEGER}
+  </update>
+</mapper>

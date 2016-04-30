@@ -46,10 +46,10 @@
 					<div class="col-sm-2">
 						<select class="form-control" name="sSubject">
 							<option value="">-- 请选择 --</option>
-							<option value="小学课程">小学课程</option>
-							<option value="初中课程">初中课程</option>
-							<option value="高中课程">高中课程</option>
-							<option value="大学课程">大学课程</option>
+							<option value="小学">小学课程</option>
+							<option value="初中">初中课程</option>
+							<option value="高中">高中课程</option>
+							<option value="大学">大学课程</option>
 							<option value="艺术/乐器">艺术/乐器</option>
 							<option value="计算机">计算机</option>
 						</select>
@@ -106,7 +106,7 @@
 				
 				<div class="form-group">
 					<div class="col-sm-3 col-sm-offset-9">
-						<button type="submit" class="btn btn-primary" id="sureBtn">确定</button>
+						<button type="button" class="btn btn-primary" id="sureBtn">确定</button>
 						<button type="reset" class="btn btn-default">重置</button>
 					</div>
 				</div>
@@ -122,16 +122,12 @@
 		
 		<!-- 学员订单部分 -->
 		<div id="studentOrdersDiv">
-			<div class="row afterTitleDiv">
+			<!-- <div class="row afterTitleDiv">
 				<div class="col-sm-2 textLabel">学员：</div>
 				<div class="col-sm-2">初三[女]</div>
 				
 				<div class="col-sm-2 textLabel">辅导科目：</div>
 				<div class="col-sm-6">小提琴</div>
-				
-				<!-- <div class="col-sm-3 col-sm-offset-1">
-					<p class="label label-success">发布中</p>
-				</div> -->
 				
 				<div class="col-sm-2 textLabel">授课区域：</div>
 				<div class="col-sm-2">花都</div>
@@ -149,68 +145,8 @@
 						在校教员,资质好点的大学生，要音乐学院
 					</a>
 				</div>
-				
-			</div>
+			</div> -->
 			
-			<div class="row afterTitleDiv">
-				<div class="col-sm-2 textLabel">学员：</div>
-				<div class="col-sm-2">初三[女]</div>
-				
-				<div class="col-sm-2 textLabel">辅导科目：</div>
-				<div class="col-sm-6">小提琴</div>
-				
-				<!-- <div class="col-sm-3 col-sm-offset-1">
-					<p class="label label-success">发布中</p>
-				</div> -->
-				
-				<div class="col-sm-2 textLabel">授课区域：</div>
-				<div class="col-sm-2">花都</div>
-				
-				<div class="col-sm-2 textLabel">性别要求：</div>
-				<div class="col-sm-2">女</div>
-				
-				<div class="col-sm-2 col-sm-offset-2">
-					<a href="toOrderDetail.html"><button type="button" class="btn btn-info">查看详情</button></a>
-				</div>
-				
-				<div class="col-sm-2 textLabel">教员资格要求：</div>
-				<div class="col-sm-10 tooltipClass" data-toggle="tooltip" data-placement="bottom" title="要提示的内容">
-					<a href="#">
-						在校教员,资质好点的大学生，要音乐学院
-					</a>
-				</div>
-				
-			</div>
-			
-			<div class="row afterTitleDiv">
-				<div class="col-sm-2 textLabel">学员：</div>
-				<div class="col-sm-2">初三[女]</div>
-				
-				<div class="col-sm-2 textLabel">辅导科目：</div>
-				<div class="col-sm-6">小提琴</div>
-				
-				<!-- <div class="col-sm-3 col-sm-offset-1">
-					<p class="label label-success">发布中</p>
-				</div> -->
-				
-				<div class="col-sm-2 textLabel">授课区域：</div>
-				<div class="col-sm-2">花都</div>
-				
-				<div class="col-sm-2 textLabel">性别要求：</div>
-				<div class="col-sm-2">女</div>
-				
-				<div class="col-sm-2 col-sm-offset-2">
-					<a href="toOrderDetail.html"><button type="button" class="btn btn-info">查看详情</button></a>
-				</div>
-				
-				<div class="col-sm-2 textLabel">教员资格要求：</div>
-				<div class="col-sm-10 tooltipClass" data-toggle="tooltip" data-placement="bottom" title="要提示的内容">
-					<a href="#">
-						在校教员,资质好点的大学生，要音乐学院
-					</a>
-				</div>
-				
-			</div>
 		</div>	<!-- 搜索结果结束 -->
 		
 		<!-- 分页组件 -->
@@ -224,12 +160,12 @@
 				      </a>
 				    </li>
 				    <li class="active"><a href="#">1</a></li>
-				    <li><a href="#">2</a></li>
-				    <li><a href="#">3</a></li>
-				    <li><a href="#">4</a></li>
-				    <li><a href="#">5</a></li>
+				    <li><a href="javascript:void(0);">2</a></li>
+				    <li><a href="javascript:void(0);">3</a></li>
+				    <li><a href="javascript:void(0);">4</a></li>
+				    <li><a href="javascript:void(0);">5</a></li>
 				    <li>
-				      <a href="#" aria-label="Next">
+				      <a href="javascript:void(0);" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>
 				      </a>
 				    </li>
@@ -242,8 +178,79 @@
 	
 	<script type="text/javascript">
 		$(function () {
-		  $('[data-toggle="tooltip"]').tooltip()
+			var listData; // 存储数据集合
+			var listSize; // 存储集合长度
+		    $('[data-toggle="tooltip"]').tooltip();
+			
+		    /* 加载页面完毕之后查询所有学员订单数据 */
+		    $.ajax({
+		    	type : "post",
+		    	dataType : "json",
+		    	url : "queryAllOrders.html",
+		    	success : function(data){
+		    		listSize = data.listSize;
+		    		listData = data.stuOrderList;
+		    		showData(listData,listSize,0,listSize);
+		    	},
+		    	error : function(data){
+		    		alert("网络出错！")
+		    	}
+		    })
+		    
+		    /* 条件查询“确定”按钮点击事件 */
+		  $("#sureBtn").click(function(){
+			  var jsonData = $("#studentSelectForm").serialize();
+			  $.ajax({
+				  type : "post",
+				  data : jsonData,
+				  url : "queryOrderByCondition.html",
+				  dataType : "json",
+				  success : function(data){
+					  if(data.status == "ERROR"){
+						  $("#studentOrdersDiv").html("");
+						  alert("无结果")
+					  }
+					  else{
+						  listData = data.stuOrderList;
+						  listSize = data.listSize;
+						  showData(listData,listSize,0,listSize);
+					  }
+				  },
+				  error : function(data){
+					  alert("网络出错！")
+				  }
+			  })
+		  })
 		})
+		
+		function showData(listData,listSize,begin,end){
+			if(end> listSize-1){
+				end = listSize-1;
+			}
+			$("#studentOrdersDiv").html("");
+			for(;begin<=end;begin++){
+				var str = "<div class='row afterTitleDiv'>"+
+				"<div class='col-sm-2 textLabel'>学员：</div>"+
+				"<div class='col-sm-2'>"+listData[begin].sName+"</div>"+
+				"<div class='col-sm-2 textLabel'>辅导科目：</div>"+
+				"<div class='col-sm-6'>"+listData[begin].sSubject+"</div>"+
+				"<div class='col-sm-2 textLabel'>授课区域：</div>"+
+				"<div class='col-sm-2'>"+listData[begin].sAddress+"</div>"+
+				"<div class='col-sm-2 textLabel'>性别要求：</div>"+
+				"<div class='col-sm-2'>"+listData[begin].sRequestSex+"</div>"+
+				"<div class='col-sm-2 col-sm-offset-2'>"+
+				"<a target='_blank' href='toOrderDetail.html?orderId="+listData[begin].orderId+"'><button type='button' class='btn btn-info'>查看详情</button></a>"+
+				"</div>"+
+				"<div class='col-sm-2 textLabel'>教员资格要求：</div>"+
+				"<div class='col-sm-10 tooltipClass' data-toggle='tooltip' data-placement='bottom' title='"+listData[begin].sQualificationRemarks+"'>"+
+				"<a href='javascript:void(0);'>"+
+				listData[begin].sQualificationRemarks+
+				"</a>"+
+				"</div>"+
+				"</div>";
+				$("#studentOrdersDiv").append(str);
+			}
+		}
 	</script>
 </body>
 </html>

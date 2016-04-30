@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lgs.mapper.ReservationMapper" >
+  <resultMap id="BaseResultMap" type="com.lgs.dto.Reservation" >
+    <id column="RESERVATION_ID" property="reservationId" jdbcType="INTEGER" />
+    <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="TEACHER_ID" property="teacherId" jdbcType="INTEGER" />
+    <result column="STUDENT_ID" property="studentId" jdbcType="INTEGER" />
+    <result column="RESERVATION_DATE" property="reservationDate" jdbcType="TIMESTAMP" />
+    <result column="RESERVATION_INFO" property="reservationInfo" jdbcType="VARCHAR" />
+    <result column="RESERVATION_STATUS" property="reservationStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RESERVATION_ID, ORDER_ID, TEACHER_ID, STUDENT_ID, RESERVATION_DATE, RESERVATION_INFO, 
+    RESERVATION_STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reservation
+    where RESERVATION_ID = #{reservationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reservation
+    where RESERVATION_ID = #{reservationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lgs.dto.Reservation" >
+    insert into reservation (RESERVATION_ID, ORDER_ID, TEACHER_ID, 
+      STUDENT_ID, <!-- RESERVATION_DATE, --> RESERVATION_INFO<!-- , 
+      RESERVATION_STATUS -->)
+    values (#{reservationId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, 
+      #{studentId,jdbcType=INTEGER}, <!-- #{reservationDate,jdbcType=TIMESTAMP}, --> #{reservationInfo,jdbcType=VARCHAR}<!-- , 
+      #{reservationStatus,jdbcType=VARCHAR} -->)
+  </insert>
+  <insert id="insertSelective" parameterType="com.lgs.dto.Reservation" >
+    insert into reservation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reservationId != null" >
+        RESERVATION_ID,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID,
+      </if>
+      <if test="studentId != null" >
+        STUDENT_ID,
+      </if>
+      <if test="reservationDate != null" >
+        RESERVATION_DATE,
+      </if>
+      <if test="reservationInfo != null" >
+        RESERVATION_INFO,
+      </if>
+      <if test="reservationStatus != null" >
+        RESERVATION_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reservationId != null" >
+        #{reservationId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="reservationDate != null" >
+        #{reservationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationInfo != null" >
+        #{reservationInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationStatus != null" >
+        #{reservationStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lgs.dto.Reservation" >
+    update reservation
+    <set >
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null" >
+        TEACHER_ID = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        STUDENT_ID = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="reservationDate != null" >
+        RESERVATION_DATE = #{reservationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reservationInfo != null" >
+        RESERVATION_INFO = #{reservationInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="reservationStatus != null" >
+        RESERVATION_STATUS = #{reservationStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RESERVATION_ID = #{reservationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lgs.dto.Reservation" >
+    update reservation
+    set ORDER_ID = #{orderId,jdbcType=INTEGER},
+      TEACHER_ID = #{teacherId,jdbcType=INTEGER},
+      STUDENT_ID = #{studentId,jdbcType=INTEGER},
+      RESERVATION_DATE = #{reservationDate,jdbcType=TIMESTAMP},
+      RESERVATION_INFO = #{reservationInfo,jdbcType=VARCHAR},
+      RESERVATION_STATUS = #{reservationStatus,jdbcType=VARCHAR}
+    where RESERVATION_ID = #{reservationId,jdbcType=INTEGER}
+  </update>
+
+	<!-- 以下自行添加 --> 
+	
+	<!-- 根据各种ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="com.lgs.dto.Reservation">
+		select 
+	    <include refid="Base_Column_List" />
+	    from reservation
+	    <where>
+	    	<if test="reservationId != null">
+	    		RESERVATION_ID = #{reservationId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="orderId != null">
+	    		AND ORDER_ID = #{orderId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="teacherId != null">
+	    		AND TEACHER_ID = #{teacherId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="studentId != null">
+	    		AND STUDENT_ID = #{studentId,jdbcType=INTEGER}
+	    	</if>
+	    </where>
+	</select>
+  
+ </mapper>

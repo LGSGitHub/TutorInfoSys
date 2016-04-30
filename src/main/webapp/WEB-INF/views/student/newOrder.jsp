@@ -107,7 +107,12 @@
 						<input name="sPrice" type="text" class="form-control" placeholder="元/小时"/>
 					</div>
 					
-					<label class="col-sm-2 control-label">教学方式</label>
+					<label  class="col-sm-2 control-label">手机号码</label>
+					<div class="col-sm-2">
+						<input name="sPhone" type="text" class="form-control"/>
+					</div>
+					
+					<label class="col-sm-1 control-label">教学方式</label>
 					<div class="col-sm-4 checkbox">
 						<label class="checkbox-inline">
 							<input name="sTeacherWay" type="checkbox" value="教员上门">教员上门
@@ -157,6 +162,7 @@
 					<div class="col-sm-10">
 						<textarea name="sQualificationRemarks" style="width:100%;height:100px;" ></textarea>
 					</div>
+					<input type="hidden" id="teacherId" name="teacherId" value="${teacherId }"/>
 				</div>
 				
 				<div class="form-group">
@@ -202,6 +208,22 @@ $(document).ready(function() {
 	                }
 	    		}
 	    	},
+	    	sPhone:{
+	    		validators:{
+	    			notEmpty:{
+	    				message: 'The phone number is required and cannot be empty'
+	    			},
+	    			regexp: {
+	                    regexp: /^[0-9]+$/,
+	                    message: 'The phone number can only consist of number'
+	                },
+	                stringLength:{
+	                	min:11,
+	                	max:11,
+	                	message: 'The phone number must be 11 characters long'
+	                }
+	    		}
+	    	},
 	    	sPrice:{
 	    		validators:{
 	    			notEmpty:{
@@ -230,7 +252,63 @@ $(document).ready(function() {
 	    }
 	})
 	
+	/* 确定按钮点击事件 */
+	$("#sureBtn").click(function(){
+		var jsonData = $("#newOrderForm").serialize();
+		$.ajax({
+			type : "post",
+			data : jsonData,
+			dataType : "json",
+			async : false,
+			url : "insertOrder.html",
+			success : function(data){
+				alert(data.message);
+				if(data.status == "SUCCESS" && $("#teacherId").val() != null){
+					messageTeacher();
+				}
+			},
+			error : function(data){
+				alert("网络出错！")
+			}
+		})
+	})
+	
 })
+
+function messageTeacher(){
+	var orderId = getOrderIdForTeacher();
+	var message = {"receiverId":$("#teacherId").val(),"messageContent":"hello,我想邀请你当家教","orderId":orderId};
+	$.ajax({
+		type : "post",
+		data : message,
+		dataType : "json",
+		async : false,
+		url : "sendMessage.html",
+		success : function(data){
+			alert("该教员将会收到您的预约请求，请耐心等待。")
+		},
+		error : function(data){
+			alert("网络出错！")
+		}
+	})
+}
+
+function getOrderIdForTeacher(){
+	var orderId;
+	$.ajax({
+		type : "post",
+		dataType : "json",
+		async : false,
+		url : "queryLatestOrder.html",
+		success : function(data){
+			orderId = data.orderId;
+		},
+		error : function(data){
+			alert("网络出错！")
+		}
+	})
+	return orderId;
+}
 	
 </script>
 </body>
